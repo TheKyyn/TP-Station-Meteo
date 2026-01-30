@@ -1,0 +1,13 @@
+{
+  "name": "bridge-mqtt-ws",
+  "version": "1.0.0",
+  "description": "Bridge MQTT vers WebSocket pour la station meteo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "mqtt": "^5.0.0",
+    "ws": "^8.14.0"
+  }
+}

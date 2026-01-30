@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station Meteo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Station Meteo</h1>
+    <div id="status" class="status deconnecte">Deconnecte</div>
+
+    <div class="donnees">
+      <div class="carte">
+        <h2>Temperature</h2>
+        <p id="temperature">--</p>
+        <span id="unite">&deg;C</span>
+      </div>
+      <div class="carte">
+        <h2>Humidite</h2>
+        <p id="humidite">--</p>
+        <span>%</span>
+      </div>
+    </div>
+
+    <button id="btn-toggle" onclick="toggleUnite()">Basculer &deg;C / &deg;F</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
