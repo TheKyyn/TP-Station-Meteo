@@ -3,14 +3,13 @@
 #include <DHT.h>
 #include <ArduinoJson.h>
 
-#define MODE_SIMULATION true   // mettre false pour le vrai capteur
+#define MODE_SIMULATION false   
 
-// pins
 #define DHTPIN 4
 #define DHTTYPE DHT22
 #define BTN_PIN 15
-#define LED_C 23
-#define LED_F 22
+#define LED_C 23      
+#define LED_F 22        
 
 const char* ssid = "IPhone de Wissem";
 const char* password = "wissem2019";
@@ -38,11 +37,10 @@ void callback(char* topic, byte* payload, unsigned int length);
 void setup() {
   Serial.begin(115200);
 
-  pinMode(BTN_PIN, INPUT_PULLUP);
+  pinMode(BTN_PIN, INPUT_PULLDOWN);  
   pinMode(LED_C, OUTPUT);
   pinMode(LED_F, OUTPUT);
 
-  // celsius par defaut
   digitalWrite(LED_C, HIGH);
   digitalWrite(LED_F, LOW);
 
@@ -50,7 +48,7 @@ void setup() {
     dht.begin();
   }
 
-  // wifi
+  // WiFi
   WiFi.begin(ssid, password);
   Serial.print("Connexion WiFi");
   while (WiFi.status() != WL_CONNECTED) {
@@ -58,9 +56,10 @@ void setup() {
     Serial.print(".");
   }
   Serial.println(" OK");
+  Serial.print("IP: ");
   Serial.println(WiFi.localIP());
 
-  // mqtt
+  // MQTT
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 }
@@ -71,22 +70,22 @@ void loop() {
   }
   client.loop();
 
-  if (digitalRead(BTN_PIN) == LOW && (millis() - lastDebounce > debounceDelay)) {
+
+  if (digitalRead(BTN_PIN) == HIGH && (millis() - lastDebounce > debounceDelay)) {
     lastDebounce = millis();
     isCelsius = !isCelsius;
     updateLeds();
     Serial.println(isCelsius ? "Mode: Celsius" : "Mode: Fahrenheit");
   }
 
-  // publication toutes les 5s (à changer si besoin)
   if (millis() - lastPublish >= publishInterval) {
     lastPublish = millis();
 
     float temp, hum;
 
     if (MODE_SIMULATION) {
-      temp = random(180, 300) / 10.0; // valeur changeable au besoin
-      hum = random(400, 800) / 10.0; // idem
+      temp = random(180, 300) / 10.0;
+      hum = random(400, 800) / 10.0;
     } else {
       temp = dht.readTemperature();
       hum = dht.readHumidity();
