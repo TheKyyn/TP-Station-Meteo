@@ -36,6 +36,7 @@ let lastData = null;
 let temperatureHistory = [];
 let humidityHistory = [];
 let mixedChart = null;
+let previousTemp = null;
 
 // Utilitaires
 function getTimeLabel() {
@@ -49,6 +50,17 @@ function isValidValue(value) {
 
 function limitArraySize(array, maxSize) {
   if (array.length > maxSize) array.splice(0, array.length - maxSize);
+}
+
+// Détection de variation brutale de température
+function TempVariation(newTemp) {
+  if (previousTemp !== null) {
+    const diff = Math.abs(newTemp - previousTemp);
+    if (diff >= 15) {
+      console.warn(`Variation brutale: ${diff.toFixed(1)}°C (${previousTemp}°C → ${newTemp}°C)`);
+    }
+  }
+  previousTemp = newTemp;
 }
 
 // Gestion de l'état de connexion
@@ -124,6 +136,11 @@ function displayData(data) {
   const tempValue = data.temperature ?? '--';
   const humValue = data.humidity ?? '--';
   const unit = data.unit || 'C';
+
+  // Détecter les variations brutales de température
+  if (data.temperature !== undefined && isValidValue(data.temperature)) {
+    TempVariation(data.temperature);
+  }
 
   updateValue(el.temperature, tempValue);
   updateValue(el.humidite, humValue);

@@ -3,103 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Station Météo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>Station Meteo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <header class="header">
-      <h1 class="title">Station Météo</h1>
-      <div class="badges">
-        <div id="status" class="status deconnecte">
-          <span class="status-dot"></span>
-          <span class="status-text">Déconnecté</span>
-        </div>
-        <span id="demo-badge" class="badge badge-demo" hidden>DEMO</span>
-      </div>
-    </header>
+    <h1>Station Meteo</h1>
+    <div class="badges">
+      <div id="status" class="status deconnecte">Deconnecte</div>
+      <span id="demo-badge" class="badge badge-demo" hidden>DEMO</span>
+    </div>
 
     <div class="donnees">
-      <div class="carte carte-temp">
-        <div class="carte-header">
-          <svg class="carte-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C10.34 2 9 3.34 9 5V11C8.17 11.55 7.5 12.38 7.5 13.5C7.5 15.16 8.84 16.5 10.5 16.5C12.16 16.5 13.5 15.16 13.5 13.5C13.5 12.38 12.83 11.55 12 11V5C12 3.34 10.66 2 9 2H12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 8H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M10.5 13.5L10.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <h2 class="carte-label">Température</h2>
-        </div>
-        <div class="carte-value-wrapper">
-          <p id="temperature" class="carte-value">--</p>
-          <span id="unite" class="carte-unite">&deg;C</span>
-        </div>
+      <div class="carte">
+        <h2>Temperature</h2>
+        <p id="temperature">--</p>
+        <span id="unite">&deg;C</span>
       </div>
-
-      <div class="carte carte-hum">
-        <div class="carte-header">
-          <svg class="carte-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2.69L5 8.69C5 15.69 8.5 20.69 12 21.69C15.5 20.69 19 15.69 19 8.69L12 2.69Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 12.69C13.38 12.69 14.5 11.57 14.5 10.19C14.5 8.81 13.38 7.69 12 7.69C10.62 7.69 9.5 8.81 9.5 10.19C9.5 11.57 10.62 12.69 12 12.69Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <h2 class="carte-label">Humidité</h2>
-        </div>
-        <div class="carte-value-wrapper">
-          <p id="humidite" class="carte-value">--</p>
-          <span class="carte-unite">%</span>
-        </div>
+      <div class="carte">
+        <h2>Humidite</h2>
+        <p id="humidite">--</p>
+        <span>%</span>
       </div>
     </div>
 
-    <button id="btn-toggle" type="button" class="btn-toggle">
-      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 7H16M8 12H16M8 17H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <path d="M3 3L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      Changer l'unité (°C / °F)
-    </button>
-
-    <div class="graphique-section">
-      <div class="carte carte-graphique">
-        <h2 class="carte-label">Historique</h2>
-        <div class="graphique-container">
-          <canvas id="mixed-chart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="stats-section">
-      <div class="carte carte-stats">
-        <h2 class="carte-label">
-          <svg class="stats-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 3V21H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 16L12 11L16 15L21 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 10V4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Moyennes
-        </h2>
-        <div class="stats-content">
-          <div class="stat-item">
-            <div class="stat-info">
-              <span class="stat-label">Température</span>
-              <span class="stat-label-sub">moyenne</span>
-            </div>
-            <span id="moyenne-temp" class="stat-value">--</span>
-          </div>
-          <div class="stat-item">
-            <div class="stat-info">
-              <span class="stat-label">Humidité</span>
-              <span class="stat-label-sub">moyenne</span>
-            </div>
-            <span id="moyenne-hum" class="stat-value">--</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button id="btn-toggle" type="button">Basculer °C / °F</button>
   </div>
 
   <script src="script.js"></script>
