@@ -5,15 +5,15 @@
 
 #define MODE_SIMULATION true   // mettre false pour le vrai capteur
 
-// pins 
+// pins
 #define DHTPIN 4
 #define DHTTYPE DHT22
 #define BTN_PIN 15
-#define LED_C 18
-#define LED_F 19
+#define LED_C 23
+#define LED_F 22
 
-const char* ssid = "NOM_WIFI"; // à changer
-const char* password = "MOT_DE_PASSE"; // à changer
+const char* ssid = "IPhone de Wissem";
+const char* password = "wissem2019";
 
 const char* mqtt_server = "captain.dev0.pandor.cloud";
 const int mqtt_port = 1884;
