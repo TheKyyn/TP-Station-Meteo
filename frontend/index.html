@@ -1,32 +1,52 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Station Meteo</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Station Météo IoT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <h1>Station Meteo</h1>
-    <div id="status" class="status deconnecte">Deconnecte</div>
+<body class="bg-zinc-900 text-gray-100 min-h-screen p-8">
+<div class="max-w-4xl mx-auto">
+    <header class="mb-10">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-light">Station Météo</h1>
+            <div id="status" class="flex items-center gap-2">
+                <span class="dot w-2 h-2 rounded-full bg-gray-500"></span>
+                <span id="status-text" class="text-sm text-gray-400">Connexion</span>
+            </div>
+        </div>
+    </header>
 
-    <div class="donnees">
-      <div class="carte">
-        <h2>Temperature</h2>
-        <p id="temperature">--</p>
-        <span id="unite">&deg;C</span>
-      </div>
-      <div class="carte">
-        <h2>Humidite</h2>
-        <p id="humidite">--</p>
-        <span>%</span>
-      </div>
+    <main class="grid md:grid-cols-2 gap-6 mb-10">
+        <div class="bg-zinc-800 border border-zinc-700 rounded-lg p-8">
+            <p class="text-sm text-gray-400 mb-3">Température</p>
+            <div class="flex items-baseline gap-2">
+                <span id="temperature" class="text-5xl font-light">--</span>
+                <span id="unite" class="text-xl text-gray-500">°C</span>
+            </div>
+        </div>
+
+        <div class="bg-zinc-800 border border-zinc-700 rounded-lg p-8">
+            <p class="text-sm text-gray-400 mb-3">Humidité</p>
+            <div class="flex items-baseline gap-2">
+                <span id="humidite" class="text-5xl font-light">--</span>
+                <span class="text-xl text-gray-500">%</span>
+            </div>
+        </div>
+    </main>
+
+    <div class="mb-10">
+        <button id="btn-toggle" class="w-full bg-zinc-800 border border-zinc-700 hover:border-zinc-600 text-gray-300 py-3 rounded-lg transition">
+            Basculer en °F
+        </button>
     </div>
 
-    <button id="btn-toggle" onclick="toggleUnite()">Basculer &deg;C / &deg;F</button>
-  </div>
+    <footer class="text-center text-sm text-gray-500">
+        <span id="last-update">--:--:--</span>
+    </footer>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
