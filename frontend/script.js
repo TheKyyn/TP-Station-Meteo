@@ -54,4 +54,12 @@ function connect() {
   };
 }
 
+function toggleUnite() {
+  const next = (lastData && lastData.unit === 'F') ? 'C' : 'F';
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ unit: next }));
+  }
+}
+
 connect();
+if (el.btnToggle) el.btnToggle.addEventListener('click', toggleUnite);

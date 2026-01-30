@@ -14,6 +14,7 @@ const MQTT_BROKER = 'mqtt://captain.dev0.pandor.cloud';
 const MQTT_PORT = 1884;
 const WS_PORT = 8080;
 const TOPIC_DATA = 'station/data';
+const TOPIC_CMD = 'station/command';
 
 const brokerUrl = `${MQTT_BROKER}:${MQTT_PORT}`;
 
@@ -50,4 +51,15 @@ bridgeClient.on('error', (err) => {
 
 bridgeClient.on('offline', () => {
   console.log('Broker déconnecté, reconnexion...');
+});
+
+wss.on('connection', (ws) => {
+  ws.on('message', (data) => {
+    const msg = typeof data === 'string' ? data : data.toString();
+    if (bridgeClient.connected) {
+      bridgeClient.publish(TOPIC_CMD, msg, { qos: 0 }, (err) => {
+        if (err) console.error('Erreur publication', TOPIC_CMD, err);
+      });
+    }
+  });
 });
