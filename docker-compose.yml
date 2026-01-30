@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  bridge:
+    build: ./bridge
+    container_name: station-bridge
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    build: ./frontend
+    container_name: station-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - bridge
+    restart: unless-stopped
+

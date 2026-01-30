@@ -37,3 +37,19 @@ npm run simulate
 ```
 
 Lancer le bridge et le frontend en parallèle pour voir les données en temps réel.
+
+## Docker (alternative)
+
+Lancer tous les services avec Docker Compose :
+
+```bash
+docker-compose up -d
+
+docker-compose logs -f
+
+docker-compose down
+```
+
+**URLs après démarrage :**
+- Frontend : http://localhost:3000
+- WebSocket : ws://localhost:8080
