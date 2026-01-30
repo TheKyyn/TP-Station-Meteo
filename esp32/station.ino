@@ -138,3 +138,22 @@ void reconnect() {
     }
   }
 }
+
+void callback(char* topic, byte* payload, unsigned int length) {
+  char msg[length + 1];
+  memcpy(msg, payload, length);
+  msg[length] = '\0';
+
+  StaticJsonDocument<64> doc;
+  deserializeJson(doc, msg);
+
+  const char* unite = doc["unit"];
+  if (strcmp(unite, "C") == 0) {
+    isCelsius = true;
+  } else if (strcmp(unite, "F") == 0) {
+    isCelsius = false;
+  }
+  updateLeds();
+  Serial.print("Commande recue: ");
+  Serial.println(unite);
+}
