@@ -40,9 +40,20 @@ bridgeClient.on('connect', () => {
 
 bridgeClient.on('message', (topic, payload) => {
   const raw = payload.toString();
-  wss.clients.forEach((ws) => {
-    if (ws.readyState === WebSocket.OPEN) ws.send(raw);
-  });
+
+  try {
+    const data = JSON.parse(raw);
+    if (typeof data.temperature !== 'number' || typeof data.humidity !== 'number') {
+      console.warn('Données invalides ignorées:', raw);
+      return;
+    }
+    const validated = JSON.stringify(data);
+    wss.clients.forEach((ws) => {
+      if (ws.readyState === WebSocket.OPEN) ws.send(validated);
+    });
+  } catch (err) {
+    console.error('JSON invalide reçu:', raw);
+  }
 });
 
 bridgeClient.on('error', (err) => {
