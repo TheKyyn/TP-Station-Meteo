@@ -17,6 +17,7 @@ const el = {
   unite: document.getElementById('unite'),
   status: document.getElementById('status'),
   btnToggle: document.getElementById('btn-toggle'),
+  demoBadge: document.getElementById('demo-badge'),
 };
 
 let ws = null;
@@ -33,6 +34,10 @@ function afficher(data) {
   if (el.temperature) el.temperature.textContent = data.temperature ?? '--';
   if (el.humidite) el.humidite.textContent = data.humidity ?? '--';
   if (el.unite) el.unite.textContent = data.unit === 'F' ? '°F' : '°C';
+
+  const isDemo = data.simulation === true;
+  if (el.demoBadge) el.demoBadge.hidden = !isDemo;
+  if (el.btnToggle) el.btnToggle.hidden = isDemo;
 }
 
 function connect() {

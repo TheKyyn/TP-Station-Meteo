@@ -32,7 +32,7 @@ h1 {
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 500;
-  margin-bottom: 1.25rem;
+  line-height: 1.25;
 }
 
 .status.connecte {
@@ -43,6 +43,35 @@ h1 {
 .status.deconnecte {
   background: rgba(255, 80, 80, 0.25);
   color: #ff5050;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  min-height: 1.9rem;
+}
+
+.status,
+.badge.badge-demo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.badge.badge-demo {
+  background: rgba(255, 180, 0, 0.25);
+  color: #ffb400;
+}
+
+.badge.badge-demo[hidden] {
+  display: none;
 }
 
 .donnees {
@@ -92,4 +121,8 @@ h1 {
 
 #btn-toggle:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+#btn-toggle[hidden] {
+  display: none;
 }
