@@ -22,15 +22,31 @@ const el = {
 
 let ws = null;
 let lastData = null;
+let previousTemp = null;
 
 function setStatus(connected) {
   el.status.textContent = connected ? 'Connecté' : 'Déconnecté';
   el.status.className = 'status ' + (connected ? 'connecte' : 'deconnecte');
 }
 
+function TempVariation(newTemp) {
+    if (previousTemp !== null) {
+        const diff = Math.abs(newTemp - previousTemp);
+
+        if (diff >= 15) {
+            console.warn(`Variation brutale: ${diff.toFixed(1)}°C (${previousTemp}°C → ${newTemp}°C)`);
+        }
+    }
+    previousTemp = newTemp;
+}
+
 function afficher(data) {
   if (!data) return;
   lastData = data;
+    if (data.temperature !== undefined) {
+      TempVariation(data.temperature);
+    }
+
   if (el.temperature) el.temperature.textContent = data.temperature ?? '--';
   if (el.humidite) el.humidite.textContent = data.humidity ?? '--';
   if (el.unite) el.unite.textContent = data.unit === 'F' ? '°F' : '°C';
