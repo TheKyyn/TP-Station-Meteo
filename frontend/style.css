@@ -1,7 +1,95 @@
-/* TODO: dark theme, cartes, status badge, bouton */
+/* Station météo - thème sombre, cartes, badge statut */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(145deg, #1a1d23 0%, #252a33 100%);
+  min-height: 100vh;
+  color: #e4e6eb;
+  padding: 1.5rem;
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+
+.status.connecte {
+  background: rgba(0, 200, 120, 0.25);
+  color: #00c878;
+}
+
+.status.deconnecte {
+  background: rgba(255, 80, 80, 0.25);
+  color: #ff5050;
+}
+
+.donnees {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.carte {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.carte h2 {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #9ca3af;
+  margin-bottom: 0.5rem;
+}
+
+.carte p {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.carte span {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+#btn-toggle {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#btn-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
